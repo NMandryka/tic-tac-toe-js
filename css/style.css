@@ -1,0 +1,21 @@
+
+h1 {
+    text-align: center;
+    font-size: 60px;
+    text-transform: uppercase;
+}
+
+.content {
+    margin: 0 auto; 
+    margin-top: 2%;
+    display: grid;
+    grid-template-columns: repeat(3, 200px);
+    grid-template-rows: repeat(3, 200px);
+    width: 600px;
+    height: 600px;
+    background-color: rgb(24, 21, 21);
+}
+
+.content .cell {
+    border: solid white 1px
+}
