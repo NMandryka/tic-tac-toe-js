@@ -8,14 +8,12 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
     <h1>tic tac toe</h1>
+    
     <div class="content">
-        <div class="cell">
-            <!-- <img src="cross.png" class="cross"></img> -->
-        </div>
-        <div class="cell">
-            <!-- <div class="zero"></div> -->
-        </div>
+        <div class="cell"></div>
+        <div class="cell"></div>
         <div class="cell"></div>
         <div class="cell"></div>
         <div class="cell"></div>
@@ -25,11 +23,13 @@
         <div class="cell"></div>
     </div>
 
-    <div class="endgameMessage">
-        <div class="endgameMessageText"></div>
-        <button class="restartGame">Restart</button>
-
+    <div id="overlay">
+        <div class="endgameMessage">
+            <div class="endgameMessageText"></div>
+            <button class="restartGame">Restart</button>
+        </div>
     </div>
+    
 
     <script src="js/script.js"></script>
 </body>

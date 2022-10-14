@@ -60,7 +60,6 @@ h1 {
     width: 500px;
     height: 300px;
     border-radius: 30px;
-    
 }
 
 .endgameMessage .endgameMessageText {
@@ -81,10 +80,19 @@ h1 {
 }
 
 .endgameMessage button:hover {
-    background-color: black;
+    background-color: rgb(204, 202, 202);
     color: #fff;
 }
 
 .show {
     display: block;
 }
+
+#overlay {
+    position:fixed;
+    left:0;
+    top:0;
+    width:100vw;
+    height:100vh;
+    display:none;
+  }

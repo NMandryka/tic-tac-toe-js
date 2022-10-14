@@ -2,17 +2,16 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     const cells = document.querySelectorAll('.cell'),
-          endgameMessage = document.querySelector('.endgameMessage'),
-          restartBtn = document.querySelector('.restartGame'),
-          endgameMessageText = document.querySelector('.endgameMessageText');
+          endGameMessage = document.querySelector('.endgameMessage'),
+          restartGameBtn = document.querySelector('.restartGame'),
+          endGameMessageText = document.querySelector('.endgameMessageText'),
+          overlay = document.querySelector('#overlay');
 
     const board = [
         '', '', '', 
         '', '', '', 
         '', '', ''
     ];
-
-    let currentPlayer = 'X';
 
     const winningConditions = [
         [0, 1, 2],
@@ -25,78 +24,100 @@ document.addEventListener('DOMContentLoaded', () => {
         [2, 4, 6]
     ];
 
-    
+    function endGame() {
+        // cells.forEach(cell => {
+        //     cell.replaceWith(cell.cloneNode(true));
+        // })
+        overlay.style.display = 'block'
+        endGameMessage.classList.add('show');
+    }
 
-    function startGame () {
-
+    function startGame() {
+        // const cells = document.querySelectorAll('.cell')
+        
+        
+        let currentPlayer = 'X';
+        let isGameEnded = false;
+        let isDraw = 0
+        
         cells.forEach((cell,index) => {
+            
+            cell.addEventListener('click', function game () {
+                isDraw++;
 
-            cell.addEventListener('click', () => {
-                
                 if(currentPlayer === 'X') {
     
                     cell.innerHTML = `
                     <img src="cross.png" class="cross"></img>
-                    `
-                    board[index] = currentPlayer
-                    currentPlayer = 'O'
+                    `;
+                    board[index] = currentPlayer;
+                    currentPlayer = 'O';
                     
                 } else {
-    
                     cell.innerHTML = `
                     <div class="zero"></div>
-                    `
-                    board[index] = currentPlayer
-                    currentPlayer = 'X'
+                    `;
+                    board[index] = currentPlayer;                  
+                    currentPlayer = 'X';
                     
                 }
+                console.log(board)
                 
                 for(let winningCells of winningConditions) {
                     
-                    if(board[winningCells[0]] === board[winningCells[1]] && board[winningCells[0]] === board[winningCells[2]] && board[winningCells[0]] !== '') {
+                    if((board[winningCells[0]] === board[winningCells[1]] && board[winningCells[1]] === board[winningCells[2]]) && board[winningCells[0]] !== '') {
                         
                         if(board[winningCells[0]] === 'X') {
-    
-                            endgameMessageText.innerHTML = 'You won'
-                            
+                            endGameMessageText.innerHTML = "Player 'X' won";
                         } else {
-    
-                            endgameMessageText.innerHTML = 'You lost'
-    
+                            endGameMessageText.innerHTML = "Player 'O' won";
                         }
-                        endgameMessage.classList.toggle('show')
-                        
-                        
+                        // cells.forEach(cell => {
+                            
+                        // })
+                        endGame();
+                        isGameEnded = true;
+                        // cells.forEach(cell => [
+                        //     cell.removeEventListener('click', game)
+                        // ])
                     } 
-                    
-                }
-    
-                if(board[0] !== '' && board[1] !== '' && board[2] !== '' && board[3] !== '' && board[4] !== '' && board[5] !== '' && board[6] !== '' && board[7] !== '' && board[8] !== '') {
-                    endgameMessageText.innerHTML = "It's draw"
-                    endgameMessage.classList.toggle('show')
+
+                    if(board[0] !== '' && board[1] !== '' && board[2] !== '' && board[3] !== '' && board[4] !== '' && board[5] !== '' && board[6] !== '' && board[7] !== '' && board[8] !== '' && isGameEnded !== true) {
+                        
+                        endGameMessageText.innerHTML = "It's draw";
+                        endGame();
+                        // cells.forEach(cell => [
+                        //     cell.removeEventListener('click', game)
+                        // ])
+                    }   
+
+                    // if(isDraw === 9) {
+                    //     endGameMessageText.innerHTML = "It's draw";
+                    //     endGame();
+                    // }  
+
                 }
                 
-                
-            }, {once: true})
+            }, {once: true});
     
-        })
+        });
     }
 
-    startGame()
+    startGame();
     
-    restartBtn.addEventListener('click', () => {
-        endgameMessage.classList.toggle('show')
-        
+
+    restartGameBtn.addEventListener('click', () => {
+        endGameMessage.classList.toggle('show')
 
         cells.forEach((cell,index) => {
-            cell.innerHTML = ''
-            board[index] = ''
+           
+            cell.innerHTML = '';
+            board[index] = '';
         })
-
-        currentPlayer = 'X'
+        overlay.style.display = 'none'
         startGame()
+
     })
 
-
-    // draw works not full and last cell win don't works + when modal pop-up you can continue play the game
+    // when you click on the button addEventLisner may work more than one time on the same button
 })
